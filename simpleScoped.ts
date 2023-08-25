@@ -14,7 +14,7 @@ class MyService {
 
     constructor(logger: Logger) {
         this._logger = logger;
-        this._logger.log('MyService has been constructed as ' + this.uuid);
+        this._logger.log('Scoped MyService has been constructed as ' + this.uuid);
     }
 
     doSomething(msg: string) {
@@ -22,19 +22,18 @@ class MyService {
     }
 }
 
-// This logger is used by all services
 const logger = new Logger();
 
-// These services are all different but use the same logger
-// They are all in the same scope
 const service1 = new MyService(logger);
 service1.doSomething('Get up');
 
-const service2 = new MyService(logger);
+const service2 = service1;
 service2.doSomething('Wash your face');
 
-const service3 = new MyService(logger);
+console.log('service1 === service2 : ' + (service1 === service2));
+
+const service3 = service2;
 service3.doSomething('Eat breakfast');
 
-const service4 = new MyService(logger);
+const service4 = service3;
 service4.doSomething('Go to work');

@@ -25,7 +25,7 @@ class MySingletonService {
             MySingletonService.instance = new MySingletonService();
         }
         this._logger = logger;
-        this._logger.log('MyService has been constructed as ' + this.uuid);
+        this._logger.log('Singleton MyService has been constructed as ' + this.uuid);
         return MySingletonService.instance;
       }
 
@@ -44,6 +44,8 @@ service1.doSomething('Get up');
 
 const service2 = MySingletonService.getInstance(logger);
 service2.doSomething('Wash your face');
+
+console.log('service1 === service2 : ' + (service1 === service2));
 
 const service3 = MySingletonService.getInstance(logger);
 service3.doSomething('Eat breakfast');

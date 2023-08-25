@@ -7,7 +7,7 @@ class Logger {
   private uuid: string = uuidv4();
 
   log(message: string): void {
-    console.log(message);
+    console.log('Logger (' + this.uuid + ') : ' +  message);
   }
 }
 
@@ -18,7 +18,7 @@ class MyService {
 
   constructor(@Inject() logger: Logger) {
     this._logger = logger;
-    this._logger.log('MyService has been constructed');
+    this._logger.log('Transient MyService has been constructed as ' + this.uuid);
   }
 
   doSomething(msg: string) {
@@ -28,12 +28,13 @@ class MyService {
 
 const loggerInstance = Container.get(Logger);
 
-
 const service1 = Container.get(MyService);
 service1.doSomething('Get up');
 
 const service2 = Container.get(MyService);
 service2.doSomething('Wash your face');
+
+console.log('service1 === service2 : ' + (service1 === service2));
 
 const service3 = Container.get(MyService);
 service3.doSomething('Eat breakfast');

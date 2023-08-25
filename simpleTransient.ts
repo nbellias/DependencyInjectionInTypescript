@@ -14,7 +14,7 @@ class MyService {
 
     constructor(logger: Logger) {
         this._logger = logger;
-        this._logger.log('MyService has been constructed as ' + this.uuid);
+        this._logger.log('Transient MyService has been constructed as ' + this.uuid);
     }
 
     doSomething(msg: string) {
@@ -23,18 +23,18 @@ class MyService {
 }
 
 // Each logger for each service
-const logger1 = new Logger();
-const service1 = new MyService(logger1);
+const logger = new Logger();
+
+const service1 = new MyService(logger);
 service1.doSomething('Get up');
 
-const logger2 = new Logger();
-const service2 = new MyService(logger2);
+const service2 = new MyService(logger);
 service2.doSomething('Wash your face');
 
-const logger3 = new Logger();
-const service3 = new MyService(logger3);
+console.log('service1 === service2 : ' + (service1 === service2));
+
+const service3 = new MyService(logger);
 service3.doSomething('Eat breakfast');
 
-const logger4 = new Logger();
-const service4 = new MyService(logger4);
+const service4 = new MyService(logger);
 service4.doSomething('Go to work');
